@@ -3,9 +3,6 @@
   Description: configuration file of vue
 ==========================================================================================*/
 
-
-const path = require('path')
-
 module.exports = {
   publicPath: '/',
   transpileDependencies: [
@@ -28,6 +25,5 @@ module.exports = {
       }
     }
   },
-  outputDir: path.resolve(__dirname, '../server/src/public'),
 }
 
