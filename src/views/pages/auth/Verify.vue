@@ -1,6 +1,6 @@
 <!-- =========================================================================================
-    File Name: Login.vue
-    Description: Login Page
+    File Name: Verify.vue
+    Description: Verify Page
 ========================================================================================== -->
 <template>
   <div class="h-screen flex w-full bg-img items-center justify-center" id="page-login">
@@ -14,44 +14,26 @@
       <vx-card>
         <div class="p-8 login-tabs-container">
           <div class="vx-card__title mb-4">
-              <h4 class="mb-4">Login</h4>
-              <p>Welcome back, please login to your account.</p>
+              <h4 class="mb-4">Verification</h4>
+              <vs-alert icon-pack="feather" icon="icon-info" class="h-full my-4" color="warning">
+                <span>You can verify if your account has already been created with either your: phone number, khuddam ID, and surname.</span>
+              </vs-alert>
           </div>
           <div>
               <vs-input
-                  v-validate="'required|min:3'"
+                  v-validate="'required'"
                   data-vv-validate-on="blur"
-                  name="khuddam_no"
+                  name="verify"
                   icon-no-border
                   icon="icon icon-user"
                   icon-pack="feather"
-                  label-placeholder="Khuddam ID"
-                  v-model="khuddam_no"
+                  label-placeholder="Verify"
+                  v-model="verify"
                   class="w-full"/>
-              <span class="text-danger text-sm">{{ errors.first('khuddam_no') }}</span>
-
-              <vs-input
-                  data-vv-validate-on="blur"
-                  v-validate="'required|min:6|max:10'"
-                  type="password"
-                  name="password"
-                  icon-no-border
-                  icon="icon icon-lock"
-                  icon-pack="feather"
-                  label-placeholder="Password"
-                  v-model="password"
-                  class="w-full mt-6" />
-              <span class="text-danger text-sm">{{ errors.first('password') }}</span>
-
+              <span class="text-danger text-sm">{{ errors.first('verify') }}</span>
               <vs-button class="mt-6" type="filled" style="width: 100%"
-                @click="login" :disabled="!isFormValid">Login</vs-button
+                @click="verifyAccount" :disabled="!isFormValid">Verify</vs-button
               >
-
-              <div class="flex flex-wrap justify-between my-5">
-                  <vs-checkbox v-model="checkbox_remember_me" class="mb-3">Remember Me</vs-checkbox>
-                  <router-link to="">Forgot Password?</router-link>
-              </div>
-
               <vs-divider></vs-divider>
                 <vs-row>
                 <vs-col
@@ -62,23 +44,9 @@
                   vs-w="8"
                 >
                   <small class="pt-4 pb-4"
-                    >Can't Login with your Khuddam ID?
+                    >Don't have an account?
                     <router-link to="/auth/register">
                       Create Account</router-link
-                    ></small
-                  >
-                </vs-col>
-                <vs-col
-                  vs-offset="2"
-                  vs-type="flex"
-                  vs-justify="center"
-                  vs-align="center"
-                  vs-w="8"
-                >
-                  <small class="pt-2"
-                    >Verify if your account is already created
-                    <router-link to="/auth/verify-account">
-                      here</router-link
                     ></small
                   >
                 </vs-col>
@@ -91,17 +59,16 @@
 </template>
 
 <script>
+import axios from '../../../axios'
 export default{
   data() {
     return {
-      khuddam_no: "",
-      password: "",
-      checkbox_remember_me: false,
+      verify: "",
     }
   },
   computed: {
     isFormValid () {
-      return !this.errors.any() && this.khuddam_no && this.password
+      return !this.errors.any() && this.verify
     },
   },
   methods: {
@@ -115,17 +82,13 @@ export default{
         icon:'icon-alert-circle'
       });
     },
-    login() {
-      let khuddam_no = this.khuddam_no
-      let password = this.password
-
+    verifyAccount() {
       this.$vs.loading()
 
-      this.$store
-        .dispatch('auth/login', { khuddam_no, password })
+      axios
+        .post('/users/verify-account', { field: this.verify })
         .then(response => {
           this.$vs.loading.close()
-          this.$router.push('/app/dashboard')
           this.$vs.notify({
             title:'Success',
             text: response.data.message,
@@ -145,15 +108,6 @@ export default{
 </script>
 
 <style lang="scss">
-#page-login {
-  .social-login-buttons {
-    .bg-facebook { background-color: #1551b1 }
-    .bg-twitter { background-color: #00aaff }
-    .bg-google { background-color: #4285F4 }
-    .bg-github { background-color: #333 }
-  }
-}
-
 
 [dir] .layout--full-page .bg-img {
     background-image: url(../../../assets/images/pages/bg.png) !important;

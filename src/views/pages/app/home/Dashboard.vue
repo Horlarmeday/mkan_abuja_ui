@@ -54,9 +54,9 @@
                     </div>
 
                     <ul>
-                        <li v-for="(index, status) in marital_statuses" :key="status" class="flex mb-3 justify-between">
+                        <li v-for="(index, status, key) in marital_statuses" :key="key" class="flex mb-3 justify-between">
                             <span class="flex items-center">
-                                    <!-- <span class="inline-block h-4 w-4 rounded-full mr-2 bg-white border-3 border-solid" :class="`border-${orderData.color}`"></span> -->
+                                    <span class="inline-block h-4 w-4 rounded-full mr-2 border-3" :style="{backgroundColor: analyticsData.sessionsByDeviceDonut.chartOptions.colors[key]}"></span>
                                     <span class="font-semibold">{{ status }}</span>
                             </span>
                             <span>{{ index }}</span>
@@ -74,9 +74,11 @@
                         <!-- CHART DATA -->
                     </div>
                         <ul>
-                            <li v-for="(index, muqam) in muqams" :key="muqam" class="flex mb-3 justify-between">
+                            <li v-for="(index, muqam, key) in muqams" :key="key" class="flex mb-3 justify-between">
                                 <span class="flex items-center">
-                                    <!-- <span class="inline-block h-3 w-3 rounded-full mr-2" :class="`bg-${customerData.color}`"></span> -->
+                                 
+                                    <span class="inline-block h-4 w-4 rounded-full mr-2 border-3" :style="{backgroundColor: analyticsData.customersPie.chartOptions.colors[key]}"></span>
+                    
                                     <span class="font-semibold">{{ muqam }}</span>
                                 </span>
                                 <span>{{ index }}</span>
@@ -154,7 +156,8 @@ export default {
         muqams: '',
         khuddam: [],
         currentPage: 1,
-        pageLimit: 10
+        pageLimit: 10,
+        activeColor: 'red'
     }
   },
   created() {
@@ -184,6 +187,7 @@ export default {
       .catch(error => {
         this.handleError(error)
       })
+     
   },
   methods: {
     handleError(error) {

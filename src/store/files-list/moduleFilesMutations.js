@@ -29,12 +29,11 @@ export default {
         state.files.splice(ItemIndex, 1)
     },
 
-    REMOVE_ITEMS(state, selectedFiles) {
+    // REMOVE_ITEMS(state, selectedFiles) {
 
-        const indexSet = new Set(selectedFiles);
+    //     const indexSet = new Set(selectedFiles);
 
-        const arrayWithValuesRemoved = state.files.filter((value, i) => !indexSet.has(i));
+    //     const arrayWithValuesRemoved = state.files.filter((value, i) => !indexSet.has(i));
 
-        console.log(arrayWithValuesRemoved);
-    }
+    // }
 }

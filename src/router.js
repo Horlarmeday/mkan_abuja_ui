@@ -97,6 +97,11 @@ const router = new Router({
                 component: () => import('@/views/pages/auth/Register.vue')
               },
               {
+                path: '/auth/verify-account',
+                name: 'page-verify',
+                component: () => import('@/views/pages/auth/Verify.vue')
+              },
+              {
                 path: '/pages/error-404',
                 name: 'page-error-404',
                 component: () => import('@/views/pages/Error404.vue')

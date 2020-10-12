@@ -1,5 +1,5 @@
 const data = {
-    muqamOptions: [
+      muqamOptions: [
         { label: 'Abuja',  value: 'Abuja'  },
         { label: 'Dutse',  value: 'Dutse'  },
         { label: 'Gwagwalada',  value: 'Gwagwalada'  },

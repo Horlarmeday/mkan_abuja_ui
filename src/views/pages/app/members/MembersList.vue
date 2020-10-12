@@ -8,6 +8,8 @@
 
     <data-view-sidebar :isSidebarActive="addNewDataSidebar" @closeSidebar="toggleDataSidebar" :data="sidebarData" />
 
+    <export-members :displayExport="displayExport" @hideDisplay="hideDisplayExport" v-if="displayExport"/>
+
     <vs-table :sst="true" @search="handleSearch" ref="table" multiple v-model="selected" :max-items="itemsPerPage" search :data="members" :total="queriedItems">
       
       <div slot="header" class="flex flex-wrap-reverse items-center flex-grow justify-between">
@@ -38,7 +40,7 @@
                 </span>
               </vs-dropdown-item>
 
-              <vs-dropdown-item>
+              <vs-dropdown-item @click="showDisplayExport">
                 <span class="flex items-center">
                   <feather-icon icon="SaveIcon" svgClasses="h-4 w-4" class="mr-2" />
                   <span>Export</span>
@@ -198,13 +200,15 @@ import DataViewSidebar from './AddNewMember.vue'
 import MemberEdit from './ChangeMemberStatus.vue'
 import {calculateAge} from '../helper/index'
 import vSelect from 'vue-select'
+import ExportMembers from './ExportMembers'
 // import moduleDataList from '@/store/members-list/moduleMember.js'
 
 export default {
   components: {
     DataViewSidebar,
     vSelect,
-    MemberEdit
+    MemberEdit,
+    ExportMembers
   },
   data () {
     return {
@@ -219,7 +223,8 @@ export default {
       sidebarData: {},
       currentPage: 1,
       displayPrompt: false,
-      memberToEdit: {}
+      memberToEdit: {},
+      displayExport: false
     }
   },
   computed: {
@@ -282,6 +287,14 @@ export default {
     showDisplayPrompt (member) {
       this.memberToEdit  = member
       this.displayPrompt = true
+    },
+
+    showDisplayExport () {
+      this.displayExport = true
+    },
+
+    hideDisplayExport () {
+      this.displayExport = false
     },
 
     hidePrompt () {

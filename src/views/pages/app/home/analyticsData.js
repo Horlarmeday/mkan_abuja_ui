@@ -908,7 +908,7 @@ export default {
         stroke: {
           width: 5
         },
-        colors: ['#2e9745', '#FF9F43', '#EA5455', '#264cea', '#ED54FD'],
+        colors: ['#2E9745', '#FF9F43', '#EA5455', '#264CEA', '#ED54FD'],
         fill: {
           type: 'gradient',
           gradient: {
