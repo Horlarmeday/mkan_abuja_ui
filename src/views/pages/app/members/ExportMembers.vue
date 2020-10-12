@@ -46,7 +46,6 @@ export default {
             cellAutoWidth: true,
             selectedFormat: 'xlsx',
             headerTitle: [
-                'Id',
                 'Surname',
                 'Firstname',
                 'Othername', 
@@ -65,7 +64,6 @@ export default {
                 'Address',
             ],
             headerVal: [
-                'kid', 
                 'surname', 
                 'firstname', 
                 'othername', 
